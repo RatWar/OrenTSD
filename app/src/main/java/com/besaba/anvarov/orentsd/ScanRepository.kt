@@ -15,6 +15,10 @@ class ScanRepository(private val scanDataDao: ScanDataDao) {
     fun getScans(numDoc: Int): LiveData<List<ScanData>> = scanDataDao.getAllScans(numDoc)
 
     @WorkerThread
+    suspend fun getSGTINfromDocument(numDoc: Int): List<String> =
+        scanDataDao.getSGTINfromDocument(numDoc)
+
+    @WorkerThread
     suspend fun insert(scanData: ScanData) {
         scanDataDao.insert(scanData)
     }

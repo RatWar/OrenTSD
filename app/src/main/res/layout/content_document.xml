@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorBackground"
         android:baselineAligned="false"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/recyclerScanList"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -23,12 +23,12 @@
 
         <LinearLayout
             android:id="@+id/transportLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@id/matrixLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/matrixLayout"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -48,7 +48,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dip"
-                android:textSize="21sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/transportLayoutText"
                 app:layout_constraintRight_toRightOf="parent"
@@ -58,13 +60,13 @@
 
         <LinearLayout
             android:id="@+id/matrixLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/transportLayout"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/transportLayout">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/matrixLayoutText"
@@ -83,7 +85,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dip"
-                android:textSize="21sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/matrixLayoutText"
                 app:layout_constraintRight_toRightOf="parent"

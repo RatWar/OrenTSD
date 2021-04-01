@@ -70,12 +70,18 @@ class AllViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun delNomen() {
-        runBlocking { mNomenRepository.delNomen()}
+        runBlocking { mNomenRepository.delNomen() }
     }
 
     fun countNomen(): Int {
         var res: Int
         runBlocking { res = mNomenRepository.countNomen() }
+        return res
+    }
+
+    fun getSGTINfromDocument(numDoc: Int): List<String> {
+        var res: List<String>
+        runBlocking { res = mScanRepository.getSGTINfromDocument(numDoc) }
         return res
     }
 }

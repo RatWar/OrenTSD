@@ -65,12 +65,14 @@ class DocumentActivity : AppCompatActivity() {
 
         val intent = intent
         mDocumentNumber = intent.getIntExtra("documentNumber", 0)
-        mAllViewModel =  ViewModelProvider1(this).get(AllViewModel::class.java)
+        mAllViewModel = ViewModelProvider1(this).get(AllViewModel::class.java)
         mAllViewModel.setNumDoc(mDocumentNumber)
         mAllViewModel.mAllScans.observe(this, { scans ->
             scans?.let { scanAdapter.setScans(it) }
         })
         tableScan.clear()
+        tableScan.addAll(mAllViewModel.getSGTINfromDocument(mDocumentNumber))
+        setLayoutCount()
     }
 
     override fun onResume() {
@@ -112,6 +114,7 @@ class DocumentActivity : AppCompatActivity() {
         }
         if (mType == "CODE_128"){
             mSGTIN = mBarcode
+            handlerTransport()
         }
     }
 
@@ -125,6 +128,7 @@ class DocumentActivity : AppCompatActivity() {
         }
         if (mType == "EAN-128"){
             mSGTIN = mBarcode
+            handlerTransport()
         }
     }
 
@@ -155,8 +159,31 @@ class DocumentActivity : AppCompatActivity() {
                 )
             }
             mAllViewModel.insertScan(mCurrentScan)
-            matrixLayoutCount.text = tableScan.size.toString()
+            setLayoutCount()
         }
+    }
+
+    private fun handlerTransport() {
+        if (checkNotDoubleScan(mSGTIN)) {
+            tableScan.add(mSGTIN)
+            val df = SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale("ru", "RU"))
+            mCurrentScan = ScanData(
+                df.format(Date()),
+                mDocumentNumber,
+                "",
+                mSGTIN,
+                "",
+                " ",
+                0
+            )
+            mAllViewModel.insertScan(mCurrentScan)
+            setLayoutCount()
+        }
+    }
+
+    private fun setLayoutCount() {
+        matrixLayoutCount.text = tableScan.filter { it.length > 20 }.size.toString()
+        transportLayoutCount.text = tableScan.filter { it.length == 20 }.size.toString()
     }
 
     // Установите статус Trigger buttons, Trigger buttons включены по умолчанию
@@ -164,7 +191,8 @@ class DocumentActivity : AppCompatActivity() {
     private val actionCloseScan = "com.xcheng.scanner.action.CLOSE_SCAN_BROADCAST"
     private val extraScankeyCode = "extra_scankey_code"
     private val extraScankeyStatus = "extra_scankey_STATUS"
-    private var triggersKeys = intArrayOf(KeyEvent.KEYCODE_F3, KeyEvent.KEYCODE_CAMERA, KeyEvent.KEYCODE_FOCUS)
+    private var triggersKeys =
+        intArrayOf(KeyEvent.KEYCODE_F3, KeyEvent.KEYCODE_CAMERA, KeyEvent.KEYCODE_FOCUS)
 
     private fun setTriggerStates() {
         triggersKeys.forEach {

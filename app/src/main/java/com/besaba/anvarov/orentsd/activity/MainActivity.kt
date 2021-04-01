@@ -19,6 +19,7 @@ import com.besaba.anvarov.orentsd.R
 import com.besaba.anvarov.orentsd.extensions.isExternalStorageReadable
 import com.besaba.anvarov.orentsd.room.DocumentData
 import com.besaba.anvarov.orentsd.room.NomenData
+import com.facebook.stetho.Stetho
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.vrinda.kotlinpermissions.PermissionCallBack
 import io.vrinda.kotlinpermissions.PermissionsActivity
@@ -36,6 +37,8 @@ class MainActivity : PermissionsActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Stetho.initializeWithDefaults(this)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)

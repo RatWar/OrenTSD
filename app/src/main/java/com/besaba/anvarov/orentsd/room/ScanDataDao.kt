@@ -19,6 +19,9 @@ interface ScanDataDao {
     @Query("SELECT IFNULL(max(NumDoc), '0') + 1 FROM scanData")
     suspend fun getNumberDocument(): Int
 
+    @Query("SELECT SGTIN FROM scanData where NumDoc = :numDoc")
+    suspend fun getSGTINfromDocument(numDoc: Int): List<String>
+
     @Query("DELETE from ScanData where NumDoc = :numDoc")
     suspend fun delDoc(numDoc: Int)
 
