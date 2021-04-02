@@ -1,9 +1,6 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 30
@@ -33,6 +30,9 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/atomicfu.kotlin_module'
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 

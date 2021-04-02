@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.besaba.anvarov.orentsd.AllViewModel
 import com.besaba.anvarov.orentsd.DocListAdapter
 import com.besaba.anvarov.orentsd.R
+import com.besaba.anvarov.orentsd.databinding.ActivityMainBinding
 import com.besaba.anvarov.orentsd.extensions.isExternalStorageReadable
 import com.besaba.anvarov.orentsd.room.DocumentData
 import com.besaba.anvarov.orentsd.room.NomenData
@@ -23,7 +24,6 @@ import com.facebook.stetho.Stetho
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.vrinda.kotlinpermissions.PermissionCallBack
 import io.vrinda.kotlinpermissions.PermissionsActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
 import java.io.File
 import java.io.IOException
@@ -33,10 +33,13 @@ class MainActivity : PermissionsActivity() {
 
     private lateinit var mAllViewModel: AllViewModel
     private var fCamera: String? = ""
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         Stetho.initializeWithDefaults(this)
 
@@ -82,7 +85,7 @@ class MainActivity : PermissionsActivity() {
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener { onDocument() }
         val count = mAllViewModel.countNomen().toString()
-        countNomen.text = count
+        binding.countNomen.text = count
     }
 
     override fun onResume() {
@@ -90,7 +93,7 @@ class MainActivity : PermissionsActivity() {
         val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         fCamera = prefs.getString("reply", "0")
         if (fCamera!!.toInt() == 2) {
-            fab.hide()
+            binding.fab.hide()
         }
     }
 

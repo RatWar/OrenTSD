@@ -11,9 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.besaba.anvarov.orentsd.AllViewModel
 import com.besaba.anvarov.orentsd.R
 import com.besaba.anvarov.orentsd.ScanListAdapter
+import com.besaba.anvarov.orentsd.databinding.ActivityDocumentBinding
 import com.besaba.anvarov.orentsd.room.ScanData
-import kotlinx.android.synthetic.main.activity_document.*
-import kotlinx.android.synthetic.main.content_document.*
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.lifecycle.ViewModelProvider as ViewModelProvider1
@@ -28,6 +27,7 @@ class DocumentActivity : AppCompatActivity() {
     private lateinit var mCurrentScan: ScanData
     private var keycode: Int = 0
     private val tableScan = mutableListOf<String>()
+    private lateinit var binding: ActivityDocumentBinding
 
     private val broadCastReceiver = object : BroadcastReceiver() {
         override fun onReceive(contxt: Context?, intent: Intent?) {
@@ -39,10 +39,12 @@ class DocumentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_document)
+        binding = ActivityDocumentBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        fabCamera.setOnClickListener { onScanner() }
-        fabSave.setOnClickListener { finish() }
+        binding.fabCamera.setOnClickListener { onScanner() }
+        binding.fabSave.setOnClickListener { finish() }
         val scanRecyclerView = findViewById<RecyclerView>(R.id.recyclerScanList)
         val scanAdapter = ScanListAdapter(this)
         scanRecyclerView.adapter = scanAdapter
@@ -78,8 +80,8 @@ class DocumentActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (fCamera!!.toInt() == 2) {
-            fabCamera.hide()
-            fabSave.hide()
+            binding.fabCamera.hide()
+            binding.fabSave.hide()
             setTriggerStates()
             openDevice(keycode)
             val filter = IntentFilter()
@@ -182,8 +184,8 @@ class DocumentActivity : AppCompatActivity() {
     }
 
     private fun setLayoutCount() {
-        matrixLayoutCount.text = tableScan.filter { it.length > 20 }.size.toString()
-        transportLayoutCount.text = tableScan.filter { it.length == 20 }.size.toString()
+        binding.matrixLayoutCount.text = tableScan.filter { it.length > 20 }.size.toString()
+        binding.transportLayoutCount.text = tableScan.filter { it.length == 20 }.size.toString()
     }
 
     // Установите статус Trigger buttons, Trigger buttons включены по умолчанию

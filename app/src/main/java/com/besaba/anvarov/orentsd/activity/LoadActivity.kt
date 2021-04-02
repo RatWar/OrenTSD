@@ -9,7 +9,6 @@ import com.besaba.anvarov.orentsd.AllViewModel
 import com.besaba.anvarov.orentsd.R
 import com.besaba.anvarov.orentsd.extensions.isExternalStorageReadable
 import com.besaba.anvarov.orentsd.room.NomenData
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import org.json.JSONArray
 import java.io.File
