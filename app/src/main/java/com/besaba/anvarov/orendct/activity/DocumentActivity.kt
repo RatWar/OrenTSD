@@ -8,8 +8,8 @@ import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.besaba.anvarov.orendct.BarcodeActivityContract
 import com.besaba.anvarov.orentsd.AllViewModel
-import com.besaba.anvarov.orentsd.BarcodeActivityContract
 import com.besaba.anvarov.orentsd.R
 import com.besaba.anvarov.orentsd.ScanListAdapter
 import com.besaba.anvarov.orentsd.databinding.ActivityDocumentBinding
