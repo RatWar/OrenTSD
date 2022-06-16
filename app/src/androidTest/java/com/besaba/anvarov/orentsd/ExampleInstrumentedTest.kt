@@ -1,4 +1,4 @@
-package com.besaba.anvarov.orendct
+package com.besaba.anvarov.orentsd
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

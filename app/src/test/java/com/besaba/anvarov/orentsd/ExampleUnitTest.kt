@@ -1,4 +1,4 @@
-package com.besaba.anvarov.orendct
+package com.besaba.anvarov.orentsd
 
 import org.junit.Test
 

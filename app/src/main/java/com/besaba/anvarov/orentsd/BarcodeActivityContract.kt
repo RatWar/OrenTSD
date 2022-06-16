@@ -1,4 +1,4 @@
-package com.besaba.anvarov.orendct
+package com.besaba.anvarov.orentsd
 
 import android.app.Activity
 import android.content.Context
