@@ -65,15 +65,15 @@ class MainActivity : AppCompatActivity() {
         docListAdapter.docAdapter(onDocClickListener)
 
         // беру новую или сущ. ViewModel
-        mAllViewModel =  ViewModelProvider(this).get(AllViewModel::class.java)
+        mAllViewModel = ViewModelProvider(this)[AllViewModel::class.java]
 
         // Add an observer on the LiveData returned by getAlphabetizedWords.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
-        mAllViewModel.mAllDocs.observe(this, { docs ->
+        mAllViewModel.mAllDocs.observe(this) { docs ->
             // Update the cached copy of the words in the adapter.
             docs?.let { docListAdapter.setDocs(it) }
-        })
+        }
 
         KotlinPermissions.with(this) // where this is an FragmentActivity instance
             .permissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
